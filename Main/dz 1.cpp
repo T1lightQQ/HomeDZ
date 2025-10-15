@@ -9,6 +9,9 @@ void n3();
 void n4();
 void n5();
 void n6();
+void n7();
+void n8();
+void n9();
 
 int main()
 {
@@ -41,10 +44,15 @@ int main()
 			n6();
 			break;
 		case 7:
-			//n7();
+			n7();
 			break;
 		case 8:
-			//n8();
+			n8();
+			break;
+		case 9:
+			n9();
+			break;
+		default:
 			break;
 	}
 
@@ -207,4 +215,81 @@ void n6()
 		}
 	}
 	std::cout << "\nћаксимальное число: " << max;
+}
+
+void n7()
+{
+	int max, mass[10];
+	for (int i = 0; i < 10; i++)
+	{
+		mass[i] = rand() % 100 + 1;
+	}
+
+	max = mass[0];
+
+	for (int i = 0; i < 10; i++)
+	{
+		if (mass[i] > max)
+		{
+			max = mass[i];
+		}
+	}
+	std::cout << "\nћаксимальное число: " << max;
+}
+
+void n8()
+{
+	int mass[10], nach, kon, chooseN, summ = 0;
+	std::cout << "¬ведите диапазон(начало): ";
+	std::cin >> nach;
+	std::cout << "¬ведите диапазон(конец): ";
+	std::cin >> kon;
+	
+	
+	for (int i = 0; i < 10; i++)
+	{
+		mass[i] = rand() % (kon - nach) + 1;
+	}
+	std::cout << "\n¬ведите число меньше которого суммировать: ";
+	std::cin >> chooseN;
+	for (int i = 0; i < 10; i++)
+	{
+		if (mass[i] > chooseN)
+		{
+			mass[i] = 0;
+		}
+		summ += mass[i];
+	}
+	std::cout << "—умма: " << summ;
+}
+
+void n9()
+{
+	int yearProfit[12], diapNach, diapKon, max, min;
+	std::cout << "¬ведите прибыль за год помес€чно:";
+	for (int i = 0; i < 12; i++)
+	{
+		std::cout << "\n¬ведите прибыль за " << i + 1 << " мес€ц: ";
+		std::cin >> yearProfit[i];
+	}
+	std::cout << "¬ведите начало диапазона: ";
+	std::cin >> diapNach;
+	std::cout << "¬ведите конец диапазона: ";
+	std::cin >> diapKon;
+
+	max = min = yearProfit[diapNach];
+
+	for (int i = diapNach - 1; i <= diapKon - 1; i++)
+	{
+		if (yearProfit[i] > max)
+		{
+			max = i + 1;
+		}
+		if (min > yearProfit[i])
+		{
+			min = i + 1;
+		}
+	}
+	std::cout << "\nћес€ц с максимальной выручкой - " << max << "й"
+		<< "\nћес€ц с минимальной выручкой - " << min << "й";
 }
