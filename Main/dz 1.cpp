@@ -12,6 +12,18 @@ void n6();
 void n7();
 void n8();
 void n9();
+void n10();
+int KolvoDay(int d, int m, int y);
+bool visokosniy(int y);
+
+void n11();
+int sredN1(int mass[10]);
+
+void n12();
+void opredN12(int mass[10]);
+
+void n13();
+
 
 int main()
 {
@@ -51,6 +63,18 @@ int main()
 			break;
 		case 9:
 			n9();
+			break;
+		case 10:
+			n10();
+			break;
+		case 11:
+			n11();
+			break;
+		case 12:
+			n12();
+			break;
+		case 13:
+			n13();
 			break;
 		default:
 			break;
@@ -292,4 +316,141 @@ void n9()
 	}
 	std::cout << "\nћес€ц с максимальной выручкой - " << max << "й"
 		<< "\nћес€ц с минимальной выручкой - " << min << "й";
+}
+
+
+void n10()
+{
+	int dNach, mNach, yNach, dKon, mKon, yKon, KolvoD1, KolvoD2;
+	std::cout << "¬ведите день начала\n";
+	std::cin >> dNach;
+	std::cout << "¬ведите мес€ц начала\n";
+	std::cin >> mNach;
+	std::cout << "¬ведите год начала\n";
+	std::cin >> yNach;
+	std::cout << "¬ведите день конца\n";
+	std::cin >> dKon;
+	std::cout << "¬ведите мес€ц конца\n";
+	std::cin >> mKon;
+	std::cout << "¬ведите год конца\n";
+	std::cin >> yKon;
+
+	KolvoD1 = KolvoDay(dNach, mNach, yNach);
+	KolvoD2 = KolvoDay(dKon, mKon, yKon);
+
+	std::cout << "–азница дней: " << KolvoD2 - KolvoD1;
+}
+int KolvoDay(int d, int m, int y)
+{
+	int allD = d;
+
+	switch (m - 1)
+	{
+	case 12: 
+		allD += 31;
+	case 11: 
+		allD += 30;
+	case 10: 
+		allD += 31;
+	case  9: 
+		allD += 30;
+	case  8: 
+		allD += 31;
+	case  7: 
+		allD += 31;
+	case  6: 
+		allD += 30;
+	case  5: 
+		allD += 31;
+	case  4: 
+		allD += 30;
+	case  3: 
+		allD += 31;
+	case  2: 
+		if (visokosniy(y)) allD += 29; 
+		else allD += 28;
+	case  1: 
+		allD += 31;
+	}
+
+	allD += (y - 1) * 365;
+	allD += (y - 1) / 4;
+
+	return allD;
+}
+bool visokosniy(int y)
+{
+	bool res = false; 
+	if (y % 4 == 0)
+	{
+		res = true;
+	}
+	if (y % 100 == 0)
+	{
+		res = false;
+	}
+	if (y % 400 == 0)
+	{
+		res = true;
+	}
+
+	return res;
+}
+
+
+
+void n11()
+{
+	int mass[10];
+	for (int i = 0; i < 10; i++)
+	{
+		mass[i] = rand() % 100 + 1;
+	}
+	std::cout << "\n—реднее: " << sredN1(mass);
+}
+int sredN1(int mass[10])
+{
+	int sum = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		sum += mass[i];
+	}
+	return sum / 10;
+}
+
+
+
+void n12()
+{
+	int mass[10];
+	for (int i = 0; i < 10; i++)
+	{
+		mass[i] = rand() % 21 - 10;
+	}
+	opredN12(mass);
+}
+void opredN12(int mass[10])
+{
+	int pol = 0, otric = 0, nul = 0;
+	for (int i = 0; i < 10; i++)
+	{
+		if (mass[i] > 0)
+		{
+			pol += 1;
+		}
+		else if (mass[i] < 0)
+		{
+			otric += 1;
+		}
+		else
+		{
+			nul += 1;
+		}
+	}
+	std::cout << "\nѕоложительных: " << pol << "\nќтрицательных: " << otric << "\nЌулевых: " << nul;
+}
+
+void n13()
+{
+	
 }
