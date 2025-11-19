@@ -23,6 +23,11 @@ void n12();
 void opredN12(int mass[10]);
 
 void n13();
+int* CreateArr(int size);
+void FillArr(int* arr, int& size);
+void PrintArr(int* arr, int& size);
+void DelArr(int* arr);
+int* AddToArr(int* arr, int& size);
 
 
 int main()
@@ -450,7 +455,58 @@ void opredN12(int mass[10])
 	std::cout << "\nПоложительных: " << pol << "\nОтрицательных: " << otric << "\nНулевых: " << nul;
 }
 
+
+
 void n13()
 {
-	
+	int size;
+	int* arr;
+	std::cout << "Введите размер массива\n";
+	std::cin >> size;
+	arr = CreateArr(size);
+	FillArr(arr, size);
+	PrintArr(arr, size);
+	arr = AddToArr(arr, size);
+	PrintArr(arr, size);
+	DelArr(arr);
 }
+int* CreateArr(int size)
+{
+	 int* arr = new int[size];
+	 return arr;
+}
+void FillArr(int* arr, int& size)
+{
+	for (int i = 0; i < size; i++)
+	{
+		arr[i] = rand() % 10 + 1;
+	}
+}
+void PrintArr(int* arr, int& size)
+{
+	system("cls");
+	for (int i = 0; i < size; i++)
+	{
+		std::cout << arr[i] << " ";
+	}
+	std::cout << "\n";
+	system("pause");
+}
+void DelArr(int* arr)
+{
+	delete[]arr;
+}
+int* AddToArr(int* arr, int& size)
+{
+	int* TempArr = new int[size + 1];
+	for (int i = 0; i < size; i++)
+	{
+		TempArr[i] = arr[i];
+	}
+	TempArr[size] = rand() % 10 + 1;
+	
+	delete[]arr;
+	size++;
+	return TempArr;
+}
+
