@@ -30,6 +30,9 @@ void DelArr(int* arr);
 int* AddToArr(int* arr, int& size);
 
 
+int* addByInd(int* arr, int& size);	// №14
+int* delByInd(int* arr, int& size);	// №14
+
 int main()
 {
 	SetConsoleCP(1251);
@@ -79,6 +82,9 @@ int main()
 			n12();
 			break;
 		case 13:
+			n13();
+			break;
+		case 14:
 			n13();
 			break;
 		default:
@@ -468,6 +474,8 @@ void n13()
 	PrintArr(arr, size);
 	arr = AddToArr(arr, size);
 	PrintArr(arr, size);
+	addByInd(arr, size); // №14
+	delByInd(arr, size); // №14
 	DelArr(arr);
 }
 int* CreateArr(int size)
@@ -510,3 +518,54 @@ int* AddToArr(int* arr, int& size)
 	return TempArr;
 }
 
+// №14
+int* addByInd(int* arr, int& size)
+{
+	int num, ind;
+	int* tempArr = new int[size + 1];
+	system("cls");
+	std::cout << "\nВведите число для добавления: ";
+	std::cin >> num;
+	std::cout << "\n Введите индекс для добавления: ";
+	std::cin >> ind;
+	
+	for (int i = 0; i < ind; i++)
+	{
+		tempArr[i] = arr[i];
+	}
+
+	tempArr[ind] = num;
+
+	for (int i = 0; i < size; i++)
+	{
+		tempArr[i + 1] = arr[i];
+	}
+
+	size++;
+	delete[]arr;
+	return tempArr;
+}
+
+int* delByInd(int* arr, int& size)
+{
+	int ind;
+	std::cout << "\nВведите индекс для удаления: ";
+	std::cin >> ind;
+
+	int* tempArr = new int[size - 1];
+
+	for (int i = 0, j = 0; i < size; i++)
+	{
+		if (i == ind)
+		{
+			continue;
+		}
+		tempArr[j] = arr[i];
+		j++;
+	}
+
+	delete[] arr;   
+	size--;         
+	return tempArr; 
+
+}
