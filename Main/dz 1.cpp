@@ -474,8 +474,10 @@ void n13()
 	PrintArr(arr, size);
 	arr = AddToArr(arr, size);
 	PrintArr(arr, size);
-	addByInd(arr, size); // ¹14
-	delByInd(arr, size); // ¹14
+	arr = addByInd(arr, size); // ¹14
+	PrintArr(arr, size);
+	arr = delByInd(arr, size); // ¹14
+	PrintArr(arr, size);
 	DelArr(arr);
 }
 int* CreateArr(int size)
@@ -536,7 +538,7 @@ int* addByInd(int* arr, int& size)
 
 	tempArr[ind] = num;
 
-	for (int i = 0; i < size; i++)
+	for (int i = ind; i < size; i++)
 	{
 		tempArr[i + 1] = arr[i];
 	}
