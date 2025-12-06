@@ -1,7 +1,12 @@
 #include <iostream>
 #include <cstdlib>
+#define NOMINMAX
 #include <Windows.h>
+#include <string>
+#include <limits>
+#include <unordered_set>
 
+inline void Getline(std::string& str);
 
 void n1();
 void n2();
@@ -33,6 +38,12 @@ int* AddToArr(int* arr, int& size);
 int* addByInd(int* arr, int& size);	// ¹14
 int* delByInd(int* arr, int& size);	// ¹14
 
+void n15();
+void upAndLow(std::string predl);
+bool isEmpty(std::string predl);
+void addPoint(std::string predl);
+bool findWord(std::string predl);
+
 int main()
 {
 	SetConsoleCP(1251);
@@ -42,6 +53,7 @@ int main()
 	int choose;
 	std::cout << "âûáåðåòå íîìåð çàäà÷è:\n";
 	std::cin >> choose;
+	std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
 	switch (choose)
 	{
@@ -87,6 +99,9 @@ int main()
 		case 14:
 			n13();
 			break;
+		case 15:
+			n15();
+			break;
 		default:
 			break;
 	}
@@ -109,6 +124,11 @@ int main()
 
 
 
+
+inline void Getline(std::string& str)
+{
+	std::getline(std::cin, str, '\n');
+}
 
 void n1()
 {
@@ -570,4 +590,124 @@ int* delByInd(int* arr, int& size)
 	size--;         
 	return tempArr; 
 
+}
+
+void n15()
+{
+	std::string predl;
+	std::cout << "Ââåäèòå ïðåäëîæåíèå: ";
+	Getline(predl);
+
+	if (isEmpty(predl))
+	{
+		std::cout << "\nÑòðîêà ïóñòà";
+	}
+	else
+	{
+		upAndLow(predl);
+		addPoint(predl);
+		findWord(predl);
+	}
+	
+}
+
+void upAndLow(std::string predl)
+{
+	std::string rusLower = "éöóêåíãøùçõúôûâàïðîëäæýÿ÷ñìèòüáþ.";
+	std::string engLower = "qwertyuiop[]asdfghjkl;'zxcvbnm,./";
+
+	std::string rusUpper = "ÉÖÓÊÅÍÃØÙÇÕÚÔÛÂÀÏÐÎËÄÆÝß×ÑÌÈÒÜÁÞ.";
+	std::string engUpper = "QWERTYUIOP[]ASDFGHJKL;'ZXCVBNM,./";
+
+	size_t pos;
+	if (!predl.empty())
+	{
+		for (int i = 0; i < predl.size() - 1; i++)
+		{
+			if (predl[i] == ' ')
+			{
+				pos = rusLower.find(predl[i + 1]);
+
+				if (pos != std::string::npos)
+				{
+					predl[i + 1] = rusUpper[pos];
+				}
+				else
+				{
+					pos = engLower.find(predl[i + 1]);
+					predl[i + 1] = engUpper[pos];
+				}
+			}
+		}
+
+
+		pos = rusLower.find(predl[0]);
+
+		if (pos != std::string::npos)
+		{
+			predl[0] = rusUpper[pos];
+		}
+		else
+		{
+			pos = engLower.find(predl[0]);
+			predl[0] = engUpper[pos];
+		}
+	}
+	std::cout << predl << "\n";
+	system("pause");
+	system("cls");
+}
+
+bool isEmpty(std::string predl)
+{
+	if (predl.empty())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void addPoint(std::string predl)
+{
+	if (predl[predl.size()] != '.')
+	{
+		predl += '.';
+	}
+	std::cout << predl << "\n";
+	system("pause");
+	system("cls");
+}
+
+bool findWord(std::string predl)
+{
+	std::string word;
+	std::cout << "Ââåäèòå èñêîìîå ñëîâî ";
+	Getline(word);
+	
+
+	int count = 0;
+	for (int i = 0, j = 0; i < predl.size(); i++)
+	{	
+		if (word[j] == predl[i])
+		{
+			count++; j++;
+
+			if (count == word.size())
+			{
+				std::cout << "\nÑëîâî íàéäåíî!\n";
+				system("pause");
+				return true;
+			}
+		}
+		else
+		{
+			count = 0;
+			j = 0;
+		}
+	}
+	std::cout << "\nÑëîâî ÍÅ íàéäåíî!";
+	return false;
 }
